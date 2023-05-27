@@ -16,6 +16,7 @@ export default async function Page() {
 
   return (
     <div>
+      <h1 className="text-white font-bold text-3xl text-center">Domains</h1>
       <Add />
       <h1 className="text-white text-3xl my-10">All Domains</h1>
       <div className="flex flex-wrap gap-5">

@@ -37,6 +37,9 @@ export default function RootLayout({
                 <li>
                   <Link href={"/domains"}>Project Domains</Link>
                 </li>
+                <li>
+                  <Link href={"/rubrics"}>Rubrics</Link>
+                </li>
               </ul>
             </div>
           </div>

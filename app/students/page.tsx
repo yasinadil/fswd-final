@@ -20,7 +20,7 @@ export default async function Page() {
   return (
     <div>
       <AddStudent />
-      <h1 className="text-white text-3xl mb-10">All Students</h1>
+      <h1 className="text-white text-3xl my-10">All Students</h1>
       <div className="flex flex-wrap gap-5">
         {allStudents.map((student: any, index) => {
           return (

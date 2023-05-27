@@ -1,68 +1,68 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function AddStudent() {
   const router = useRouter();
-  const [regno, setRegNo] = useState("");
-  const [batch, setBatch] = useState("");
-  const [contactNo, setContactNo] = useState("");
-
   const addStudent = async (event: any) => {
     event.preventDefault();
+    const form = new FormData(event.target);
+    const data = Object.fromEntries(form);
+    const config = {
+      headers: { "content-type": "application/json" },
+    };
 
-    fetch("http://0.0.0.0:8000/api/students/addStudent", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      body: JSON.stringify({
-        regNumber: regno,
-        batch: batch,
-        contact: contactNo,
-      }),
-    })
+    axios
+      .post("http://0.0.0.0:8000/api/students/addStudent", data, config)
       .then((response) => {
-        console.log(response.status);
-
-        response.json();
+        console.log(response);
       })
-      .then((data) => {
-        console.log(data);
-        router.refresh();
+      .catch((error) => {
+        console.log(error);
       });
+    router.refresh();
   };
   return (
-    <form onSubmit={addStudent}>
-      <label className="label">
-        <span className="label-text">Student Registration No.</span>
-      </label>
-      <input
-        onChange={(event) => setRegNo(event.target.value)}
-        type="text"
-        placeholder="Type here"
-        className="input input-bordered w-full max-w-xs"
-      />
-      <label className="label">
-        <span className="label-text">Batch</span>
-      </label>
-      <input
-        onChange={(event) => setBatch(event.target.value)}
-        type="text"
-        placeholder="Type here"
-        className="input input-bordered w-full max-w-xs"
-      />
-      <label className="label">
-        <span className="label-text">Contact</span>
-      </label>
-      <input
-        onChange={(event) => setContactNo(event.target.value)}
-        type="text"
-        placeholder="Type here"
-        className="input input-bordered w-full max-w-xs"
-      />
-      <br />
+    <>
+      <h1 className="text-white font-bold text-3xl text-center">Students</h1>
+      <form onSubmit={addStudent}>
+        <label className="label">
+          <span className="label-text">Student Registration No.</span>
+        </label>
+        <input
+          // onChange={(event) => setRegNo(event.target.value)}
+          type="text"
+          name="regNumber"
+          placeholder="Type here"
+          className="input input-bordered w-full max-w-xs"
+        />
+        <label className="label">
+          <span className="label-text">Batch</span>
+        </label>
+        <input
+          // onChange={(event) => setBatch(event.target.value)}
+          type="text"
+          name="batch"
+          placeholder="Type here"
+          className="input input-bordered w-full max-w-xs"
+        />
+        <label className="label">
+          <span className="label-text">Contact</span>
+        </label>
+        <input
+          // onChange={(event) => setContactNo(event.target.value)}
+          type="text"
+          name="contact"
+          placeholder="Type here"
+          className="input input-bordered w-full max-w-xs"
+        />
+        <br />
 
-      <button className="btn btn-outline btn-accent mt-5" type="submit">
-        Add
-      </button>
-    </form>
+        <button className="btn btn-outline btn-accent mt-5" type="submit">
+          Add
+        </button>
+      </form>
+    </>
   );
 }
